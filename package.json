@@ -1,0 +1,14 @@
+{
+  "name": "github-core-clone-01",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A standalone GitHub-compatible git forge: one process serving git smart HTTP, REST v3, GraphQL v4 and MCP from its own store. Built for make.fun's github-core-clone-01 bounty.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "start": "node --experimental-strip-types main.ts"
+  }
+}
