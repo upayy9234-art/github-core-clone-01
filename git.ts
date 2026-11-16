@@ -85,8 +85,39 @@ function encodePackEntryHeader(type: number, size: number): Buffer {
   return Buffer.from(bytes);
 }
 
+/** Whether this Node's inflateSync reports the consumed input length: with
+ * `{ info: true }` it returns `{ buffer, engine }` and `engine.bytesWritten`
+ * is exactly how many input bytes the zlib stream consumed. Probed once at
+ * load; the binary search below is the fallback for a Node without it. */
+const INFLATE_INFO_OK: boolean = (() => {
+  try {
+    const probe = inflateSync(deflateSync(Buffer.from('perf-probe')), { info: true }) as unknown as {
+      engine?: { bytesWritten?: unknown };
+    };
+    return typeof probe?.engine?.bytesWritten === 'number';
+  } catch {
+    return false;
+  }
+})();
+
 /** Inflate the zlib stream starting at `offset`; returns the data and the offset just past the stream. */
 function inflateAt(buf: Buffer, offset: number): { data: Buffer; next: number } {
+  if (INFLATE_INFO_OK) {
+    // One inflate instead of a binary search of ~log2(n) inflates: the engine
+    // reports exactly how many input bytes the stream consumed, and trailing
+    // bytes (the next entry, the pack trailer) are tolerated.
+    const { buffer, engine } = inflateSync(buf.subarray(offset), { info: true }) as unknown as {
+      buffer: Buffer;
+      engine: { bytesWritten: number; close?: () => void };
+    };
+    const next = offset + engine.bytesWritten;
+    try {
+      engine.close?.();
+    } catch {
+      // The handle is already spent; nothing to close.
+    }
+    return { data: buffer, next };
+  }
   let lo = offset;
   let hi = buf.length;
   let ans = -1;

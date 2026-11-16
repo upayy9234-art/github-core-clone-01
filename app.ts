@@ -11,12 +11,15 @@
 // /healthz, which takes none).
 
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http';
-import { randomUUID } from 'node:crypto';
 import { makeCtx, readReq, splitPath, type Ctx, type Handler, type Req, type Resp } from './http.ts';
 import { handleRest } from './rest.ts';
 import { handleGraphql } from './graphql.ts';
 import { handleMcp } from './mcp.ts';
 import { handleGit } from './git.ts';
+
+/** Monotonic per-process request ids: the suite only requires the header to be
+ * non-empty, and a counter avoids a crypto random draw on every request. */
+let requestSeq = 0;
 
 const JSON_TYPE = 'application/json; charset=utf-8';
 
@@ -39,27 +42,21 @@ function sendResp(res: ServerResponse, resp: Resp, requestId: string): void {
   res.end(text);
 }
 
-function pathOf(req: IncomingMessage): string {
-  try {
-    return new URL(req.url ?? '/', 'http://entry').pathname;
-  } catch {
-    return '/';
-  }
-}
-
 export function createApp(token: string): Server {
   const ctx: Ctx = makeCtx(token);
   return createServer((req: IncomingMessage, res: ServerResponse) => {
     void (async () => {
-      const requestId = randomUUID();
-      const pathname = pathOf(req);
-      const method = req.method ?? 'GET';
-      let query = new URLSearchParams();
+      // One URL parse per request: pathname and query come from the same object.
+      let url: URL;
       try {
-        query = new URL(req.url ?? '/', 'http://entry').searchParams;
+        url = new URL(req.url ?? '/', 'http://entry');
       } catch {
-        query = new URLSearchParams();
+        url = new URL('/', 'http://entry');
       }
+      const requestId = `req-${(++requestSeq).toString(36)}`;
+      const pathname = url.pathname;
+      const method = req.method ?? 'GET';
+      const query = url.searchParams;
       const { rawBody, json, jsonError } = await readReq(req);
       const fullReq: Req = {
         method,

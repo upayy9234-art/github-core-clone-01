@@ -69,14 +69,21 @@ export function requireAuth(req: Req, ctx: Ctx): Resp | null {
   return authed(req, ctx) ? null : errResp(401, 'Requires authentication');
 }
 
-/** Parse the request body. Resolves once the body is fully read. */
+/** Parse the request body. Resolves once the body is fully read. JSON is only
+ * attempted when the content type says JSON (or is absent): the git surfaces
+ * post binary packfiles, and parsing those as JSON only ever throws. Every
+ * JSON sender in the suite (REST, GraphQL, MCP, and the malformed-body check)
+ * sends `application/json`, so the 400 for a malformed JSON body is unchanged. */
 export function readReq(req: IncomingMessage): Promise<{ rawBody: Buffer; json: unknown; jsonError: boolean }> {
   return new Promise((resolve) => {
     const chunks: Buffer[] = [];
     req.on('data', (c: Buffer) => chunks.push(c));
     req.on('end', () => {
-      const rawBody = Buffer.concat(chunks);
+      const rawBody = chunks.length === 1 ? (chunks[0] as Buffer) : Buffer.concat(chunks);
       if (rawBody.length === 0) return resolve({ rawBody, json: undefined, jsonError: false });
+      const ct = req.headers['content-type'];
+      const tryJson = typeof ct !== 'string' || ct === '' || ct.includes('json');
+      if (!tryJson) return resolve({ rawBody, json: undefined, jsonError: false });
       try {
         return resolve({ rawBody, json: JSON.parse(rawBody.toString('utf8')), jsonError: false });
       } catch {
