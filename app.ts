@@ -35,28 +35,66 @@ function sendResp(res: ServerResponse, resp: Resp, requestId: string): void {
     res.end(resp.raw);
     return;
   }
-  const text = `${JSON.stringify(resp.body ?? null)}\n`;
+  if (resp.jsonText !== undefined) {
+    // Already-serialized JSON (Store.issueJsonText): send as-is.
+    const text = Buffer.from(`${resp.jsonText}\n`, 'utf8');
+    headers['content-type'] = resp.contentType ?? JSON_TYPE;
+    headers['content-length'] = String(text.length);
+    res.writeHead(resp.status, headers);
+    res.end(text);
+    return;
+  }
+  // One Buffer.from instead of JSON.stringify + a separate Buffer.byteLength
+  // scan: the byte length is the buffer's length.
+  const text = Buffer.from(`${JSON.stringify(resp.body ?? null)}\n`, 'utf8');
   headers['content-type'] = resp.contentType ?? JSON_TYPE;
-  headers['content-length'] = String(Buffer.byteLength(text));
+  headers['content-length'] = String(text.length);
   res.writeHead(resp.status, headers);
   res.end(text);
+}
+
+/** Split a request-target into pathname + query without a URL object.
+ * The fast path applies to the plain targets every client sends (`/api/v3/...`,
+ * no escapes, no dot segments, no backslashes, no fragment): for those the
+ * pathname is the bytes before the first `?` and the query is the rest, which
+ * is exactly what `new URL(target, base)` reports. Anything unusual falls
+ * back to the URL parser, so dot-segment resolution, backslash handling and
+ * invalid-byte encoding keep their old behaviour. */
+export function splitTarget(rawUrl: string): { pathname: string; query: URLSearchParams } {
+  const plain =
+    rawUrl.startsWith('/') &&
+    rawUrl.indexOf('%') === -1 &&
+    rawUrl.indexOf('\\') === -1 &&
+    rawUrl.indexOf('#') === -1 &&
+    rawUrl.indexOf('/./') === -1 &&
+    rawUrl.indexOf('/../') === -1 &&
+    !rawUrl.endsWith('/.') &&
+    !rawUrl.endsWith('/..') &&
+    // The URL parser percent-encodes these in a path (space, controls,
+    // non-ASCII, `"`, `<`, `>`, backtick, `{`, `}`); anything carrying one
+    // takes the slow path so its pathname stays identical.
+    !/[^!-~]|["<>`{}]/.test(rawUrl);
+  if (plain) {
+    const q = rawUrl.indexOf('?');
+    if (q === -1) return { pathname: rawUrl, query: new URLSearchParams() };
+    return { pathname: rawUrl.slice(0, q), query: new URLSearchParams(rawUrl.slice(q + 1)) };
+  }
+  try {
+    const url = new URL(rawUrl, 'http://entry');
+    return { pathname: url.pathname, query: url.searchParams };
+  } catch {
+    return { pathname: '/', query: new URLSearchParams() };
+  }
 }
 
 export function createApp(token: string): Server {
   const ctx: Ctx = makeCtx(token);
   return createServer((req: IncomingMessage, res: ServerResponse) => {
     void (async () => {
-      // One URL parse per request: pathname and query come from the same object.
-      let url: URL;
-      try {
-        url = new URL(req.url ?? '/', 'http://entry');
-      } catch {
-        url = new URL('/', 'http://entry');
-      }
+      // One target split per request: pathname and query come from the same parse.
+      const { pathname, query } = splitTarget(req.url ?? '/');
       const requestId = `req-${(++requestSeq).toString(36)}`;
-      const pathname = url.pathname;
       const method = req.method ?? 'GET';
-      const query = url.searchParams;
       const { rawBody, json, jsonError } = await readReq(req);
       const fullReq: Req = {
         method,

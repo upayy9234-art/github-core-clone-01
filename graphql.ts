@@ -629,6 +629,9 @@ class Executor {
               return null;
             }
             issue.state = 'closed';
+            // The REST JSON cache names the old state: drop it so a later
+            // GET rebuilds from the new one (same rule as the REST PATCH).
+            issue.jsonCache = null;
             return { t: 'CloseIssuePayload', issue: issueNode(resolved.repo, issue), clientMutationId: input.clientMutationId ?? null } as GNode;
           }
           case 'createPullRequest': {

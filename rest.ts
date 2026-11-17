@@ -1,7 +1,7 @@
 // REST v3 surface: /api/v3/* — see SPEC-rest.md.
 // All routes require auth. All replies JSON. Errors {message}.
 
-import { jsonResp, errResp, requireAuth, type Req, type Resp, type Ctx } from './http.ts';
+import { jsonResp, jsonTextResp, errResp, requireAuth, type Req, type Resp, type Ctx } from './http.ts';
 import { VIEWER, parseCommit, serializeCommit, type Store, type Repo } from './store.ts';
 
 type Body = Record<string, unknown>;
@@ -328,7 +328,7 @@ export async function handleRest(req: Req, ctx: Ctx): Promise<Resp> {
           if ('error' in created) {
             return errResp(422, `Unknown label: ${created.label}`);
           }
-          return jsonResp(201, store.issueJson(repo, created));
+          return jsonTextResp(201, store.issueJsonText(repo, created));
         }
         if (method === 'GET') {
           const state = req.query.get('state') ?? undefined;
@@ -363,11 +363,16 @@ export async function handleRest(req: Req, ctx: Ctx): Promise<Resp> {
       if (sub.length === 2) {
         const issue = store.getIssue(repo, num);
         if (!issue) return errResp(404, 'Not Found');
-        if (method === 'GET') return jsonResp(200, store.issueJson(repo, issue));
+        if (method === 'GET') return jsonTextResp(200, store.issueJsonText(repo, issue));
         if (method === 'PATCH') {
           const state = str(body.state);
-          if (state === 'open' || state === 'closed') issue.state = state;
-          return jsonResp(200, store.issueJson(repo, issue));
+          if (state === 'open' || state === 'closed') {
+            issue.state = state;
+            // The cached JSON names the old state: drop it so the reply (and
+            // every later GET) is rebuilt from the new one.
+            issue.jsonCache = null;
+          }
+          return jsonTextResp(200, store.issueJsonText(repo, issue));
         }
         return errResp(404, 'Not Found');
       }

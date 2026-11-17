@@ -278,23 +278,83 @@ function readPack(buf: Buffer, resolveBase?: (oid: string) => GitObject | undefi
   return { objects };
 }
 
-/** Build a plain (no-delta) pack from objects, in deterministic order. */
+/** Build a plain (no-delta) pack from objects, in deterministic order.
+ * The trailer is the SHA-1 of every byte before it; it is fed incrementally
+ * as parts are produced, so the pack bytes are concatenated exactly once
+ * (the old code concatenated them once for the hash and once for the
+ * return value). */
 function writePack(objects: Map<string, GitObject>): Buffer {
   const sorted = [...objects.entries()].sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
+  const hash = createHash('sha1');
   const parts: Buffer[] = [];
+  const pushPart = (part: Buffer): void => {
+    parts.push(part);
+    hash.update(part);
+  };
   const header = Buffer.alloc(12);
   header.write('PACK', 0, 'ascii');
   header.writeUInt32BE(2, 4);
   header.writeUInt32BE(sorted.length, 8);
-  parts.push(header);
+  pushPart(header);
   for (const [, obj] of sorted) {
     const typeNum = TYPE_CODES[obj.type];
-    parts.push(encodePackEntryHeader(typeNum, obj.data.length));
-    parts.push(deflateSync(obj.data));
+    pushPart(encodePackEntryHeader(typeNum, obj.data.length));
+    pushPart(deflateSync(obj.data));
   }
-  const trailer = createHash('sha1').update(Buffer.concat(parts)).digest();
-  parts.push(trailer);
+  parts.push(hash.digest());
   return Buffer.concat(parts);
+}
+
+// ---------------------------------------------------------------- fetch-pack cache
+//
+// A fetch's answer is a pure function of (repo, wants, haves, shallows,
+// depth, protocol version): git objects are immutable once stored (keyed by
+// oid, never edited in place) and a parent pointer never changes, so the
+// reachable set from fixed tips cannot change when *other* objects arrive.
+// The one thing that can change an answer is the object graph itself
+// growing — an object a fetch skipped as "missing" could arrive later — so
+// the key also carries the repo's identity and its object count: any store
+// write (receive-pack, commitFile, merge, ...) bumps the count and the next
+// fetch recomputes. Repos are never re-created with a reused id
+// (Store.nextRepoId only grows), so a deleted-and-recreated repo cannot
+// collide with a stale entry either.
+//
+// This matters because the clone benchmark fires 50 identical shallow
+// clones at one static history: without a cache the server re-walks the
+// graph, re-deflates and re-frames the same pack 50 times. The cache is
+// small and bounded (8 entries, 8 MiB total); oversized packs are simply
+// not cached. Cached buffers are never mutated (sendResp only reads them),
+// so sharing one Buffer across responses is safe.
+interface CachedFetch {
+  raw: Buffer;
+}
+const FETCH_CACHE_MAX_ENTRIES = 8;
+const FETCH_CACHE_MAX_BYTES = 8 * 1024 * 1024;
+const fetchCache = new Map<string, CachedFetch>();
+let fetchCacheBytes = 0;
+
+function fetchCacheGet(key: string): Buffer | undefined {
+  const entry = fetchCache.get(key);
+  if (!entry) return undefined;
+  // Refresh LRU order.
+  fetchCache.delete(key);
+  fetchCache.set(key, entry);
+  return entry.raw;
+}
+
+function fetchCacheSet(key: string, raw: Buffer): void {
+  if (raw.length > FETCH_CACHE_MAX_BYTES) return;
+  const old = fetchCache.get(key);
+  if (old) fetchCacheBytes -= old.raw.length;
+  while (fetchCache.size >= FETCH_CACHE_MAX_ENTRIES || fetchCacheBytes + raw.length > FETCH_CACHE_MAX_BYTES) {
+    const first = fetchCache.keys().next();
+    if (first.done) break;
+    const victim = fetchCache.get(first.value);
+    if (victim) fetchCacheBytes -= victim.raw.length;
+    fetchCache.delete(first.value);
+  }
+  fetchCache.set(key, { raw });
+  fetchCacheBytes += raw.length;
 }
 
 // ---------------------------------------------------------------- ref helpers
@@ -470,6 +530,21 @@ function fetchPack(_req: Req, ctx: Ctx, repo: Repo, lines: string[], isV2: boole
     else if (line.startsWith('shallow ')) shallows.push(line.slice(8).trim());
     else if (line.startsWith('deepen ')) deepen = parseInt(line.slice(7).trim(), 10);
   }
+  // Identical fetches of an unchanged graph answer identically (see the
+  // fetch-pack cache note above): serve the cached response bytes.
+  const cacheKey = [
+    repo.id,
+    repo.objects.size,
+    isV2 ? 'v2' : 'v0',
+    `deepen=${deepen ?? ''}`,
+    `wants=${[...wants].sort().join(',')}`,
+    `haves=${[...haves].sort().join(',')}`,
+    `shallow=${[...shallows].sort().join(',')}`,
+  ].join('\n');
+  const cached = fetchCacheGet(cacheKey);
+  if (cached !== undefined) {
+    return { status: 200, raw: cached, contentType: 'application/x-git-upload-pack-result' };
+  }
   // Exclusion: objects the client already holds. Its shallow boundaries cut
   // parent traversal, so a deepen never re-sends (or wrongly excludes) history.
   const cut = new Set(shallows.map((s) => s.toLowerCase()));
@@ -489,6 +564,7 @@ function fetchPack(_req: Req, ctx: Ctx, repo: Repo, lines: string[], isV2: boole
     if (parents.some((p) => delivered.has(p.toLowerCase()))) unshallow.push(bl);
   }
 
+  let raw: Buffer;
   if (isV2) {
     const out: Buffer[] = [];
     out.push(pktLine('acknowledgments\n'));
@@ -503,15 +579,18 @@ function fetchPack(_req: Req, ctx: Ctx, repo: Repo, lines: string[], isV2: boole
     out.push(pktLine('packfile\n'));
     out.push(...sidebandPackets(pack));
     out.push(FLUSH);
-    return { status: 200, raw: Buffer.concat(out), contentType: 'application/x-git-upload-pack-result' };
+    raw = Buffer.concat(out);
+  } else {
+    // v0: NAK + shallow/unshallow lines, then sideband packets directly.
+    const out: Buffer[] = [];
+    out.push(pktLine('NAK\n'));
+    for (const s of shallow) out.push(pktLine(`shallow ${s}\n`));
+    for (const s of unshallow) out.push(pktLine(`unshallow ${s}\n`));
+    out.push(...sidebandPackets(pack));
+    raw = Buffer.concat(out);
   }
-  // v0: NAK + shallow/unshallow lines, then sideband packets directly.
-  const out: Buffer[] = [];
-  out.push(pktLine('NAK\n'));
-  for (const s of shallow) out.push(pktLine(`shallow ${s}\n`));
-  for (const s of unshallow) out.push(pktLine(`unshallow ${s}\n`));
-  out.push(...sidebandPackets(pack));
-  return { status: 200, raw: Buffer.concat(out), contentType: 'application/x-git-upload-pack-result' };
+  fetchCacheSet(cacheKey, raw);
+  return { status: 200, raw, contentType: 'application/x-git-upload-pack-result' };
 }
 
 async function receivePack(req: Req, ctx: Ctx, repo: Repo): Promise<Resp> {

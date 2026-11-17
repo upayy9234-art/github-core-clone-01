@@ -35,6 +35,9 @@ export interface Resp {
   status: number;
   body?: unknown;
   raw?: Buffer;
+  /** An already-serialized JSON body (sent as-is, plus the trailing newline
+   * every JSON reply carries); when set, `body` is ignored. */
+  jsonText?: string;
   contentType?: string;
   headers?: Record<string, string>;
 }
@@ -45,16 +48,28 @@ export function jsonResp(status: number, body: unknown, headers: Record<string, 
   return { status, body, headers };
 }
 
+/** A response whose JSON body is already serialized: skips the rebuild and
+ * the per-request JSON.stringify (see Store.issueJsonText). */
+export function jsonTextResp(status: number, jsonText: string, headers: Record<string, string> = {}): Resp {
+  return { status, jsonText, headers };
+}
+
 export function errResp(status: number, message: string): Resp {
   return { status, body: { message } };
 }
 
-/** The bearer token the request carries, or null. */
+/** The bearer token the request carries, or null. Equivalent to the old
+ * `/^Bearer (.+)$/` match on the trimmed header, without the regex: the
+ * header must start with `Bearer ` and carry a non-empty token after it
+ * (the token itself is taken verbatim, spaces included, exactly as the
+ * regex's capture group took it). */
 export function bearerToken(req: Req): string | null {
   const h = req.headers.authorization;
   if (typeof h !== 'string') return null;
-  const m = /^Bearer (.+)$/.exec(h.trim());
-  return m ? m[1] : null;
+  const trimmed = h.trim();
+  if (!trimmed.startsWith('Bearer ')) return null;
+  const token = trimmed.slice('Bearer '.length);
+  return token === '' ? null : token;
 }
 
 /** True when the request carries the suite's token (any non-empty bearer when no token is configured). */
@@ -96,6 +111,11 @@ export function readReq(req: IncomingMessage): Promise<{ rawBody: Buffer; json: 
 
 export function splitPath(pathname: string): string[] {
   return pathname.split('/').filter((s) => s !== '').map((s) => {
+    // Most segments are plain ASCII (owner, repo, 'issues', numbers): skip
+    // the decoder entirely unless the segment actually carries an escape.
+    // decodeURIComponent only changes strings containing '%', so the result
+    // is identical for every other segment.
+    if (s.indexOf('%') === -1) return s;
     try {
       return decodeURIComponent(s);
     } catch {

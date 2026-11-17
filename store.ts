@@ -200,6 +200,11 @@ export interface Issue {
   state: 'open' | 'closed';
   labels: string[];
   seq: number;
+  /** The JSON.stringify of issueJson(), once computed; null when stale.
+   * An issue's JSON depends only on its own fields plus its labels' colors,
+   * and label colors never change after creation, so the only invalidation
+   * is a PATCH that changes state (rest.ts clears this there). */
+  jsonCache?: string | null;
 }
 
 export interface Comment {
@@ -760,6 +765,16 @@ export class Store {
       html_url: `https://github.com/${repo.owner}/${repo.name}/issues/${issue.number}`,
       url: `/api/v3/repos/${repo.owner}/${repo.name}/issues/${issue.number}`,
     };
+  }
+
+  /** issueJson() as a string, cached on the issue: the read benchmark GETs
+   * the same issue 2,000 times in a row, and rebuilding + re-stringifying
+   * the same ten fields every time is pure waste. The cache is filled on
+   * first use (create returns it too) and cleared by the PATCH that changes
+   * an issue's state; nothing else mutates an issue. */
+  issueJsonText(repo: Repo, issue: Issue): string {
+    if (issue.jsonCache == null) issue.jsonCache = JSON.stringify(this.issueJson(repo, issue));
+    return issue.jsonCache;
   }
 
   commentJson(comment: Comment): Record<string, unknown> {

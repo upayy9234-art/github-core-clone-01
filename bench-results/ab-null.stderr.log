@@ -1,0 +1,264 @@
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 600.691 ms
+[bench] push round 2/3: 403.366 ms
+[bench] push round 3/3: 290.091 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 134.847 ms (50 concurrent)
+[bench] clone round 2/3: 104.39 ms (50 concurrent)
+[bench] clone round 3/3: 114.141 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 878.127 ms
+[bench] read round 2/3: 596.908 ms
+[bench] read round 3/3: 510.114 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 92.131 ms
+[bench] write round 2/3: 133.25 ms
+[bench] write round 3/3: 162.469 ms
+[bench] push: p50 403.366 ms, 50 point(s)
+[bench] clone: p50 114.141 ms, 40 point(s)
+[bench] read: p50 596.908 ms, 50 point(s)
+[bench] write: p50 133.25 ms, 42 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 566.883 ms
+[bench] push round 2/3: 432.242 ms
+[bench] push round 3/3: 299.752 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 218.374 ms (50 concurrent)
+[bench] clone round 2/3: 117.734 ms (50 concurrent)
+[bench] clone round 3/3: 171.033 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 831.714 ms
+[bench] read round 2/3: 614.183 ms
+[bench] read round 3/3: 629.846 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 97.156 ms
+[bench] write round 2/3: 167.76 ms
+[bench] write round 3/3: 93.043 ms
+[bench] push: p50 432.242 ms, 49 point(s)
+[bench] clone: p50 171.033 ms, 33 point(s)
+[bench] read: p50 629.846 ms, 50 point(s)
+[bench] write: p50 97.156 ms, 48 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 718.04 ms
+[bench] push round 2/3: 423.592 ms
+[bench] push round 3/3: 304.869 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 152.581 ms (50 concurrent)
+[bench] clone round 2/3: 128.885 ms (50 concurrent)
+[bench] clone round 3/3: 165.975 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 860.508 ms
+[bench] read round 2/3: 629.653 ms
+[bench] read round 3/3: 508.698 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 88.138 ms
+[bench] write round 2/3: 109.894 ms
+[bench] write round 3/3: 95.698 ms
+[bench] push: p50 423.592 ms, 49 point(s)
+[bench] clone: p50 152.581 ms, 35 point(s)
+[bench] read: p50 629.653 ms, 50 point(s)
+[bench] write: p50 95.698 ms, 48 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 571.48 ms
+[bench] push round 2/3: 406.775 ms
+[bench] push round 3/3: 292.361 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 153.142 ms (50 concurrent)
+[bench] clone round 2/3: 122.109 ms (50 concurrent)
+[bench] clone round 3/3: 173.46 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 858.984 ms
+[bench] read round 2/3: 801.696 ms
+[bench] read round 3/3: 522.538 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 104.832 ms
+[bench] write round 2/3: 120.081 ms
+[bench] write round 3/3: 103.805 ms
+[bench] push: p50 406.775 ms, 50 point(s)
+[bench] clone: p50 153.142 ms, 35 point(s)
+[bench] read: p50 801.696 ms, 47 point(s)
+[bench] write: p50 104.832 ms, 47 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 572.535 ms
+[bench] push round 2/3: 353.772 ms
+[bench] push round 3/3: 267.263 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 152.97 ms (50 concurrent)
+[bench] clone round 2/3: 153.266 ms (50 concurrent)
+[bench] clone round 3/3: 100.581 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 803.615 ms
+[bench] read round 2/3: 625.364 ms
+[bench] read round 3/3: 492.846 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 105.134 ms
+[bench] write round 2/3: 160.495 ms
+[bench] write round 3/3: 90.412 ms
+[bench] push: p50 353.772 ms, 50 point(s)
+[bench] clone: p50 152.97 ms, 35 point(s)
+[bench] read: p50 625.364 ms, 50 point(s)
+[bench] write: p50 105.134 ms, 47 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 551.748 ms
+[bench] push round 2/3: 373.781 ms
+[bench] push round 3/3: 258.257 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 149.86 ms (50 concurrent)
+[bench] clone round 2/3: 114.456 ms (50 concurrent)
+[bench] clone round 3/3: 126.239 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 890.284 ms
+[bench] read round 2/3: 648.987 ms
+[bench] read round 3/3: 534.459 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 102.3 ms
+[bench] write round 2/3: 109.357 ms
+[bench] write round 3/3: 94.029 ms
+[bench] push: p50 373.781 ms, 50 point(s)
+[bench] clone: p50 126.239 ms, 39 point(s)
+[bench] read: p50 648.987 ms, 50 point(s)
+[bench] write: p50 102.3 ms, 47 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 975.815 ms
+[bench] push round 2/3: 467.731 ms
+[bench] push round 3/3: 327.154 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 124.685 ms (50 concurrent)
+[bench] clone round 2/3: 117.834 ms (50 concurrent)
+[bench] clone round 3/3: 150.82 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 727.783 ms
+[bench] read round 2/3: 663.592 ms
+[bench] read round 3/3: 508.104 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 106.65 ms
+[bench] write round 2/3: 102.392 ms
+[bench] write round 3/3: 93.535 ms
+[bench] push: p50 467.731 ms, 48 point(s)
+[bench] clone: p50 124.685 ms, 39 point(s)
+[bench] read: p50 663.592 ms, 50 point(s)
+[bench] write: p50 102.392 ms, 47 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 631.91 ms
+[bench] push round 2/3: 364.791 ms
+[bench] push round 3/3: 302.522 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 124.297 ms (50 concurrent)
+[bench] clone round 2/3: 167.538 ms (50 concurrent)
+[bench] clone round 3/3: 178.475 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 1062.943 ms
+[bench] read round 2/3: 649.121 ms
+[bench] read round 3/3: 483.012 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 104.533 ms
+[bench] write round 2/3: 128.922 ms
+[bench] write round 3/3: 106.987 ms
+[bench] push: p50 364.791 ms, 50 point(s)
+[bench] clone: p50 167.538 ms, 33 point(s)
+[bench] read: p50 649.121 ms, 50 point(s)
+[bench] write: p50 106.987 ms, 46 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 593.77 ms
+[bench] push round 2/3: 383.892 ms
+[bench] push round 3/3: 286.756 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 182.131 ms (50 concurrent)
+[bench] clone round 2/3: 114.596 ms (50 concurrent)
+[bench] clone round 3/3: 146.259 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 719.79 ms
+[bench] read round 2/3: 617.681 ms
+[bench] read round 3/3: 476.458 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 95.492 ms
+[bench] write round 2/3: 106.331 ms
+[bench] write round 3/3: 111.252 ms
+[bench] push: p50 383.892 ms, 50 point(s)
+[bench] clone: p50 146.259 ms, 36 point(s)
+[bench] read: p50 617.681 ms, 50 point(s)
+[bench] write: p50 106.331 ms, 46 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 569.117 ms
+[bench] push round 2/3: 386.456 ms
+[bench] push round 3/3: 332.541 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 140.653 ms (50 concurrent)
+[bench] clone round 2/3: 114.893 ms (50 concurrent)
+[bench] clone round 3/3: 111.61 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 799.311 ms
+[bench] read round 2/3: 688.821 ms
+[bench] read round 3/3: 490.549 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 90.403 ms
+[bench] write round 2/3: 105.198 ms
+[bench] write round 3/3: 92.175 ms
+[bench] push: p50 386.456 ms, 50 point(s)
+[bench] clone: p50 114.893 ms, 40 point(s)
+[bench] read: p50 688.821 ms, 50 point(s)
+[bench] write: p50 92.175 ms, 49 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 527.236 ms
+[bench] push round 2/3: 393.124 ms
+[bench] push round 3/3: 254.386 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 170.816 ms (50 concurrent)
+[bench] clone round 2/3: 131.33 ms (50 concurrent)
+[bench] clone round 3/3: 151.765 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 746.697 ms
+[bench] read round 2/3: 556.02 ms
+[bench] read round 3/3: 443.448 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 90.811 ms
+[bench] write round 2/3: 109.862 ms
+[bench] write round 3/3: 97.928 ms
+[bench] push: p50 393.124 ms, 50 point(s)
+[bench] clone: p50 151.765 ms, 35 point(s)
+[bench] read: p50 556.02 ms, 50 point(s)
+[bench] write: p50 97.928 ms, 48 point(s)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 593.616 ms
+[bench] push round 2/3: 337.708 ms
+[bench] push round 3/3: 297.066 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 145.764 ms (50 concurrent)
+[bench] clone round 2/3: 149.149 ms (50 concurrent)
+[bench] clone round 3/3: 133.278 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 988.023 ms
+[bench] read round 2/3: 656.001 ms
+[bench] read round 3/3: 510.989 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 95.795 ms
+[bench] write round 2/3: 102.629 ms
+[bench] write round 3/3: 102.391 ms
+[bench] push: p50 337.708 ms, 50 point(s)
+[bench] clone: p50 145.764 ms, 36 point(s)
+[bench] read: p50 656.001 ms, 50 point(s)
+[bench] write: p50 102.391 ms, 47 point(s)
