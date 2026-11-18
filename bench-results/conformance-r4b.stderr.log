@@ -1,0 +1,8 @@
+(node:9685) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit-fresh/github-core-clone-01-kit/sdk/run.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+git fixture: pushed d8b8422453ef to refs/heads/main (server.toml)
+git fixture: pushed 9929310d2b17 to refs/heads/chore/mcp-tool-schemas (config/token.css)
+git fixture: pushed dbe49b1318ed to refs/heads/chore/conditional-requests (config/token.css.create)
+git fixture: pushed 27eaf46879b7 to refs/heads/feature/repo-pagination (config/token.css.merge)

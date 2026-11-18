@@ -7,11 +7,11 @@
 // is main.ts (MAKEFUN_ENV_URL lifecycle); this file exists so a bench driver
 // can start/stop the server per repetition without the env.
 
-import { createApp } from '../app.ts';
+import { createRawServer } from '../raw-server.ts';
 
 const token = process.env.LOCAL_TOKEN ?? 'shpat_localtest00000000000000000000000000000000';
 const port = Number(process.env.LOCAL_PORT ?? 0);
-const server = createApp(token);
+const server = createRawServer(token);
 server.listen(port, '127.0.0.1', () => {
   const address = server.address();
   if (address === null || typeof address === 'string') throw new Error('no TCP address');

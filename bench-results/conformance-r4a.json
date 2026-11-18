@@ -1,0 +1,1012 @@
+{
+  "url": "http://127.0.0.1:35227",
+  "healthz": true,
+  "scenario_seed": "6a09e667f3bcc909",
+  "manifest_issues": [],
+  "counts": {
+    "registered": 120,
+    "manifest_total": 120,
+    "passed": 120,
+    "mcp_passed": 15,
+    "by_group": {
+      "git": {
+        "passed": 30,
+        "total": 30
+      },
+      "repos": {
+        "passed": 15,
+        "total": 15
+      },
+      "issues": {
+        "passed": 15,
+        "total": 15
+      },
+      "pulls": {
+        "passed": 20,
+        "total": 20
+      },
+      "protocol": {
+        "passed": 5,
+        "total": 5
+      },
+      "graphql": {
+        "passed": 20,
+        "total": 20
+      },
+      "mcp": {
+        "passed": 15,
+        "total": 15
+      }
+    }
+  },
+  "checks": [
+    {
+      "id": "git.advertise-v2",
+      "group": "git",
+      "title": "protocol v2 capability advertisement is served and well formed",
+      "ok": true,
+      "detail": "protocol v2; capabilities: agent, fetch, ls-refs, object-format",
+      "ms": 78
+    },
+    {
+      "id": "git.advertise-receive-pack",
+      "group": "git",
+      "title": "receive-pack serves a v0 ref advertisement with push capabilities",
+      "ok": true,
+      "detail": "v0 advertisement lists 1 ref(s); capabilities: agent, delete-refs, ofs-delta, report-status, side-band-64k, symref",
+      "ms": 24
+    },
+    {
+      "id": "git.advertise-headers",
+      "group": "git",
+      "title": "info/refs answers the smart-HTTP content type and preamble",
+      "ok": true,
+      "detail": "content types and smart-HTTP preambles are correct for v0, v2 and receive-pack",
+      "ms": 60
+    },
+    {
+      "id": "git.unknown-repo-404",
+      "group": "git",
+      "title": "a missing repository advertises 404 and the server stays up",
+      "ok": true,
+      "detail": "a missing repo answers 404 on both services; a known repo still answers 200",
+      "ms": 11
+    },
+    {
+      "id": "git.ls-refs",
+      "group": "git",
+      "title": "v2 ls-refs reports refs, HEAD symref and peeled tags",
+      "ok": true,
+      "detail": "ls-refs returned 3 ref(s); HEAD→refs/heads/main; refs/tags/v1 peeled to its commit",
+      "ms": 18
+    },
+    {
+      "id": "git.ls-refs-prefix",
+      "group": "git",
+      "title": "v2 ls-refs honours ref-prefix filtering",
+      "ok": true,
+      "detail": "heads=1, tags=1, unmatched=0",
+      "ms": 22
+    },
+    {
+      "id": "git.clone-empty",
+      "group": "git",
+      "title": "a repository with no refs clones as an empty repository",
+      "ok": true,
+      "detail": "0 refs; unborn HEAD → refs/heads/main; no objects transferred",
+      "ms": 11
+    },
+    {
+      "id": "git.push-first-commit",
+      "group": "git",
+      "title": "a first commit pushes to an unborn branch and becomes the tip",
+      "ok": true,
+      "detail": "unborn branch accepted 86ee3c0c; HEAD → refs/heads/main",
+      "ms": 23
+    },
+    {
+      "id": "git.clone-object-hashes",
+      "group": "git",
+      "title": "a full clone verifies object-for-object",
+      "ok": true,
+      "detail": "cloned 14 objects (0 deltas, 4239 bytes); every SHA-1 recomputed; the closure of 8fab81a8 is complete",
+      "ms": 24
+    },
+    {
+      "id": "git.clone-blob-bytes",
+      "group": "git",
+      "title": "every cloned blob equals the pushed bytes",
+      "ok": true,
+      "detail": "4 blob(s) byte-identical across 11 objects",
+      "ms": 23
+    },
+    {
+      "id": "git.clone-tree-entries",
+      "group": "git",
+      "title": "cloned trees round-trip paths, modes and nested directories",
+      "ok": true,
+      "detail": "4 root entries, nested cli present, every tree byte-identical",
+      "ms": 18
+    },
+    {
+      "id": "git.clone-commit-bytes",
+      "group": "git",
+      "title": "commit objects round-trip byte-exactly with their metadata",
+      "ok": true,
+      "detail": "the tip commit bytes, parents, message and author/committer lines round-trip exactly",
+      "ms": 34
+    },
+    {
+      "id": "git.clone-annotated-tag",
+      "group": "git",
+      "title": "an annotated tag object round-trips and peels to its commit",
+      "ok": true,
+      "detail": "tag object byte-identical; object/type/tag headers correct; peeled to 86ee3c0c",
+      "ms": 28
+    },
+    {
+      "id": "git.fetch-incremental",
+      "group": "git",
+      "title": "an incremental fetch sends only the new objects and advances the tip",
+      "ok": true,
+      "detail": "6 new object(s) (2107 bytes, 0 deltas); the old tip was not re-sent",
+      "ms": 29
+    },
+    {
+      "id": "git.fetch-nothing-new",
+      "group": "git",
+      "title": "a fetch with the tip already held transfers no objects",
+      "ok": true,
+      "detail": "no objects delivered (a 32-byte pack with no entries)",
+      "ms": 16
+    },
+    {
+      "id": "git.fetch-shallow-depth1",
+      "group": "git",
+      "title": "a depth-1 shallow clone lands the tip only",
+      "ok": true,
+      "detail": "tip c735f80c only; parent and grandparent absent; shallow-info names the tip; the tip's tree (1 entries) and blobs are present",
+      "ms": 33
+    },
+    {
+      "id": "git.fetch-shallow-deepen",
+      "group": "git",
+      "title": "deepen 2 extends a shallow clone by exactly one generation",
+      "ok": true,
+      "detail": "parent f8074c80 delivered with its tree (1 entries); the grandparent is still absent; the boundary moved",
+      "ms": 25
+    },
+    {
+      "id": "git.fetch-shallow-new-tip",
+      "group": "git",
+      "title": "a shallow fetch of a new tip does not pull the old history",
+      "ok": true,
+      "detail": "4 object(s) for the new tip; the old history is absent",
+      "ms": 25
+    },
+    {
+      "id": "git.push-update-ref",
+      "group": "git",
+      "title": "a fast-forward update moves a branch and clones see it",
+      "ok": true,
+      "detail": "refs/heads/main advanced 86ee3c0c → f8074c80; a clone sees it",
+      "ms": 17
+    },
+    {
+      "id": "git.push-create-branch",
+      "group": "git",
+      "title": "creating a branch from an existing commit is reported and advertised",
+      "ok": true,
+      "detail": "refs/heads/feature created at 86ee3c0c, advertised and cloned",
+      "ms": 36
+    },
+    {
+      "id": "git.push-delete-branch",
+      "group": "git",
+      "title": "deleting a branch is reported and removes the ref",
+      "ok": true,
+      "detail": "refs/heads/feature deleted; refs/heads/main intact; the repo is still clonable",
+      "ms": 20
+    },
+    {
+      "id": "git.push-non-fast-forward",
+      "group": "git",
+      "title": "a non-fast-forward update is refused per-ref and changes nothing",
+      "ok": true,
+      "detail": "refused with ng refs/heads/main non-fast-forward; main stayed f8074c80; the server is healthy; the clone is intact",
+      "ms": 28
+    },
+    {
+      "id": "git.push-mixed-report",
+      "group": "git",
+      "title": "one command list reports ok and ng per ref, and applies only the ok one",
+      "ok": true,
+      "detail": "report-status: ok refs/heads/main, ng refs/heads/side non-fast-forward; only main advanced",
+      "ms": 19
+    },
+    {
+      "id": "git.push-delete-tag",
+      "group": "git",
+      "title": "deleting a tag ref is reported and removes the ref",
+      "ok": true,
+      "detail": "refs/tags/v1 deleted; refs/heads/main untouched",
+      "ms": 13
+    },
+    {
+      "id": "git.push-100-files",
+      "group": "git",
+      "title": "a 100-file single-commit push round-trips byte-exactly",
+      "ok": true,
+      "detail": "100 files byte-identical; 135 objects; every SHA-1 recomputed",
+      "ms": 60
+    },
+    {
+      "id": "git.pack-integrity",
+      "group": "git",
+      "title": "a fetched pack is structurally valid and checksummed",
+      "ok": true,
+      "detail": "1910 bytes, version 2, 8 objects (0 deltas), trailer 976d7b299356 verified",
+      "ms": 13
+    },
+    {
+      "id": "git.pack-deltas",
+      "group": "git",
+      "title": "delta-compressed objects resolve correctly (when the server sends them)",
+      "ok": true,
+      "detail": "16 objects, 0 delta object(s) resolved; every object verified; 4379 bytes",
+      "ms": 23
+    },
+    {
+      "id": "git.sideband-framing",
+      "group": "git",
+      "title": "the fetch packfile section is valid sideband framing",
+      "ok": true,
+      "detail": "1 sideband packet(s); 1957 band-1 bytes, 0 progress bytes; pack 8 objects, checksum verified",
+      "ms": 17
+    },
+    {
+      "id": "git.push-sideband-report",
+      "group": "git",
+      "title": "the push report arrives in valid sideband frames",
+      "ok": true,
+      "detail": "report-status demuxed from band 1; unpack ok; refs/heads/main ok; 0 progress byte(s)",
+      "ms": 9
+    },
+    {
+      "id": "git.repo-survives-errors",
+      "group": "git",
+      "title": "the server stays healthy through 404s, refusals and a malformed request",
+      "ok": true,
+      "detail": "404, ng non-fast-forward and a malformed POST (HTTP 400) were handled; the clone at f8074c80 is intact",
+      "ms": 28
+    },
+    {
+      "id": "repos.pagination",
+      "group": "repos",
+      "title": "GET /user/repos pages 30 seeded repos at per_page=10 through Link rel=\"next\"",
+      "ok": true,
+      "detail": "GET /user/repos pages 30 seeded repos at per_page=10 through Link rel=\"next\": ok",
+      "ms": 92
+    },
+    {
+      "id": "repos.root",
+      "group": "repos",
+      "title": "GET /api/v3/ answers 200 JSON with X-OAuth-Scopes",
+      "ok": true,
+      "detail": "GET /api/v3/ answers 200 JSON with X-OAuth-Scopes: ok",
+      "ms": 2
+    },
+    {
+      "id": "repos.meta",
+      "group": "repos",
+      "title": "GET /api/v3/meta reports installed_version",
+      "ok": true,
+      "detail": "GET /api/v3/meta reports installed_version: ok",
+      "ms": 2
+    },
+    {
+      "id": "repos.create",
+      "group": "repos",
+      "title": "POST /user/repos creates and GET round-trips name, private and default_branch",
+      "ok": true,
+      "detail": "POST /user/repos creates and GET round-trips name, private and default_branch: ok",
+      "ms": 4
+    },
+    {
+      "id": "repos.not-found",
+      "group": "repos",
+      "title": "GET a missing repository is a JSON 404",
+      "ok": true,
+      "detail": "GET a missing repository is a JSON 404: ok",
+      "ms": 1
+    },
+    {
+      "id": "repos.patch",
+      "group": "repos",
+      "title": "PATCH /repos/{o}/{r} updates the description",
+      "ok": true,
+      "detail": "PATCH /repos/{o}/{r} updates the description: ok",
+      "ms": 8
+    },
+    {
+      "id": "repos.delete",
+      "group": "repos",
+      "title": "DELETE /repos/{o}/{r} deletes it and a later GET is 404",
+      "ok": true,
+      "detail": "DELETE /repos/{o}/{r} deletes it and a later GET is 404: ok",
+      "ms": 9
+    },
+    {
+      "id": "repos.branches",
+      "group": "repos",
+      "title": "GET /branches lists a branch created through POST /git/refs",
+      "ok": true,
+      "detail": "GET /branches lists a branch created through POST /git/refs: ok",
+      "ms": 6
+    },
+    {
+      "id": "repos.commits",
+      "group": "repos",
+      "title": "GET /commits reflects a commit made on a branch and not the default branch",
+      "ok": true,
+      "detail": "GET /commits reflects a commit made on a branch and not the default branch: ok",
+      "ms": 9
+    },
+    {
+      "id": "repos.unauthorized",
+      "group": "repos",
+      "title": "a request without a token is 401",
+      "ok": true,
+      "detail": "a request without a token is 401: ok",
+      "ms": 5
+    },
+    {
+      "id": "repos.foreign-token",
+      "group": "repos",
+      "title": "the same repository name under another owner is a 404 for this token",
+      "ok": true,
+      "detail": "the same repository name under another owner is a 404 for this token: ok",
+      "ms": 4
+    },
+    {
+      "id": "repos.contents-create",
+      "group": "repos",
+      "title": "PUT /contents creates a file with a commit; GET returns base64 content and sha",
+      "ok": true,
+      "detail": "PUT /contents creates a file with a commit; GET returns base64 content and sha: ok",
+      "ms": 7
+    },
+    {
+      "id": "repos.contents-directory",
+      "group": "repos",
+      "title": "GET /contents on a directory lists its entries",
+      "ok": true,
+      "detail": "GET /contents on a directory lists its entries: ok",
+      "ms": 7
+    },
+    {
+      "id": "repos.contents-stale-sha",
+      "group": "repos",
+      "title": "PUT /contents with a stale sha is 409",
+      "ok": true,
+      "detail": "PUT /contents with a stale sha is 409: ok",
+      "ms": 6
+    },
+    {
+      "id": "repos.contents-delete",
+      "group": "repos",
+      "title": "DELETE /contents removes the file with a commit and GET is 404",
+      "ok": true,
+      "detail": "DELETE /contents removes the file with a commit and GET is 404: ok",
+      "ms": 17
+    },
+    {
+      "id": "issues.create",
+      "group": "issues",
+      "title": "POST /issues creates a 201 open issue with a number",
+      "ok": true,
+      "detail": "POST /issues creates a 201 open issue with a number: ok",
+      "ms": 14
+    },
+    {
+      "id": "issues.create-title-body",
+      "group": "issues",
+      "title": "POST /issues echoes the title and body",
+      "ok": true,
+      "detail": "POST /issues echoes the title and body: ok",
+      "ms": 7
+    },
+    {
+      "id": "issues.create-labels",
+      "group": "issues",
+      "title": "POST /issues attaches an existing label",
+      "ok": true,
+      "detail": "POST /issues attaches an existing label: ok",
+      "ms": 7
+    },
+    {
+      "id": "issues.numbers-increment",
+      "group": "issues",
+      "title": "issue numbers increment by one",
+      "ok": true,
+      "detail": "issue numbers increment by one: ok",
+      "ms": 7
+    },
+    {
+      "id": "issues.list-open",
+      "group": "issues",
+      "title": "GET /issues?state=open lists the open issue",
+      "ok": true,
+      "detail": "GET /issues?state=open lists the open issue: ok",
+      "ms": 9
+    },
+    {
+      "id": "issues.list-open-excludes-closed",
+      "group": "issues",
+      "title": "GET /issues?state=open omits a closed issue",
+      "ok": true,
+      "detail": "GET /issues?state=open omits a closed issue: ok",
+      "ms": 6
+    },
+    {
+      "id": "issues.list-sort-asc",
+      "group": "issues",
+      "title": "GET /issues?sort=created&direction=asc orders by creation",
+      "ok": true,
+      "detail": "GET /issues?sort=created&direction=asc orders by creation: ok",
+      "ms": 11
+    },
+    {
+      "id": "issues.list-sort-desc",
+      "group": "issues",
+      "title": "GET /issues?sort=created&direction=desc reverses it",
+      "ok": true,
+      "detail": "GET /issues?sort=created&direction=desc reverses it: ok",
+      "ms": 14
+    },
+    {
+      "id": "issues.list-shape",
+      "group": "issues",
+      "title": "GET /issues returns the GitHub issue shape",
+      "ok": true,
+      "detail": "GET /issues returns the GitHub issue shape: ok",
+      "ms": 7
+    },
+    {
+      "id": "issues.get-one",
+      "group": "issues",
+      "title": "GET /issues/{n} returns the issue",
+      "ok": true,
+      "detail": "GET /issues/{n} returns the issue: ok",
+      "ms": 6
+    },
+    {
+      "id": "issues.patch-close",
+      "group": "issues",
+      "title": "PATCH /issues/{n} closes it",
+      "ok": true,
+      "detail": "PATCH /issues/{n} closes it: ok",
+      "ms": 7
+    },
+    {
+      "id": "issues.patch-close-persists",
+      "group": "issues",
+      "title": "the close survives a later GET",
+      "ok": true,
+      "detail": "the close survives a later GET: ok",
+      "ms": 8
+    },
+    {
+      "id": "issues.comment-create",
+      "group": "issues",
+      "title": "POST /issues/{n}/comments creates a comment",
+      "ok": true,
+      "detail": "POST /issues/{n}/comments creates a comment: ok",
+      "ms": 8
+    },
+    {
+      "id": "issues.comments-list",
+      "group": "issues",
+      "title": "GET /issues/{n}/comments lists the comment",
+      "ok": true,
+      "detail": "GET /issues/{n}/comments lists the comment: ok",
+      "ms": 8
+    },
+    {
+      "id": "issues.bad-label",
+      "group": "issues",
+      "title": "POST /issues with an unknown label is 422",
+      "ok": true,
+      "detail": "POST /issues with an unknown label is 422: ok",
+      "ms": 7
+    },
+    {
+      "id": "pulls.create",
+      "group": "pulls",
+      "title": "POST /pulls creates an open pull request from a head branch",
+      "ok": true,
+      "detail": "POST /pulls creates an open pull request from a head branch: ok",
+      "ms": 10
+    },
+    {
+      "id": "pulls.create-body",
+      "group": "pulls",
+      "title": "POST /pulls echoes the title and body",
+      "ok": true,
+      "detail": "POST /pulls echoes the title and body: ok",
+      "ms": 9
+    },
+    {
+      "id": "pulls.create-head-sha",
+      "group": "pulls",
+      "title": "the pull head.sha is the head branch tip",
+      "ok": true,
+      "detail": "the pull head.sha is the head branch tip: ok",
+      "ms": 12
+    },
+    {
+      "id": "pulls.create-base-sha",
+      "group": "pulls",
+      "title": "the pull base.sha is the base branch tip",
+      "ok": true,
+      "detail": "the pull base.sha is the base branch tip: ok",
+      "ms": 6
+    },
+    {
+      "id": "pulls.get-one",
+      "group": "pulls",
+      "title": "GET /pulls/{n} returns the pull request",
+      "ok": true,
+      "detail": "GET /pulls/{n} returns the pull request: ok",
+      "ms": 14
+    },
+    {
+      "id": "pulls.files-list",
+      "group": "pulls",
+      "title": "GET /pulls/{n}/files lists the changed path",
+      "ok": true,
+      "detail": "GET /pulls/{n}/files lists the changed path: ok",
+      "ms": 8
+    },
+    {
+      "id": "pulls.files-shape",
+      "group": "pulls",
+      "title": "pull files carry filename, status and the change counts",
+      "ok": true,
+      "detail": "pull files carry filename, status and the change counts: ok",
+      "ms": 7
+    },
+    {
+      "id": "pulls.files-multiple",
+      "group": "pulls",
+      "title": "GET /pulls/{n}/files lists every changed path",
+      "ok": true,
+      "detail": "GET /pulls/{n}/files lists every changed path: ok",
+      "ms": 8
+    },
+    {
+      "id": "pulls.merge-status",
+      "group": "pulls",
+      "title": "PUT /pulls/{n}/merge with merge_method=squash is 200",
+      "ok": true,
+      "detail": "PUT /pulls/{n}/merge with merge_method=squash is 200: ok",
+      "ms": 8
+    },
+    {
+      "id": "pulls.merge-body",
+      "group": "pulls",
+      "title": "the merge reply is {merged:true, sha, message}",
+      "ok": true,
+      "detail": "the merge reply is {merged:true, sha, message}: ok",
+      "ms": 6
+    },
+    {
+      "id": "pulls.merge-closes",
+      "group": "pulls",
+      "title": "the merged pull is closed, merged and carries merged_at",
+      "ok": true,
+      "detail": "the merged pull is closed, merged and carries merged_at: ok",
+      "ms": 6
+    },
+    {
+      "id": "pulls.merge-commit-on-default",
+      "group": "pulls",
+      "title": "the merge commit appears on the default branch",
+      "ok": true,
+      "detail": "the merge commit appears on the default branch: ok",
+      "ms": 7
+    },
+    {
+      "id": "pulls.merge-content-on-default",
+      "group": "pulls",
+      "title": "the squash content is on the default branch",
+      "ok": true,
+      "detail": "the squash content is on the default branch: ok",
+      "ms": 7
+    },
+    {
+      "id": "pulls.merge-commit-sha",
+      "group": "pulls",
+      "title": "the pull reports merge_commit_sha equal to the merge sha",
+      "ok": true,
+      "detail": "the pull reports merge_commit_sha equal to the merge sha: ok",
+      "ms": 7
+    },
+    {
+      "id": "pulls.merge-unknown",
+      "group": "pulls",
+      "title": "merging an unknown pull request is 404",
+      "ok": true,
+      "detail": "merging an unknown pull request is 404: ok",
+      "ms": 4
+    },
+    {
+      "id": "pulls.merge-conflict",
+      "group": "pulls",
+      "title": "merging a conflicted pull request is 405",
+      "ok": true,
+      "detail": "merging a conflicted pull request is 405: ok",
+      "ms": 11
+    },
+    {
+      "id": "pulls.list-state-all",
+      "group": "pulls",
+      "title": "GET /pulls?state=all lists open and merged pull requests",
+      "ok": true,
+      "detail": "GET /pulls?state=all lists open and merged pull requests: ok",
+      "ms": 10
+    },
+    {
+      "id": "pulls.list-default-open",
+      "group": "pulls",
+      "title": "GET /pulls defaults to open pull requests",
+      "ok": true,
+      "detail": "GET /pulls defaults to open pull requests: ok",
+      "ms": 9
+    },
+    {
+      "id": "pulls.list-shape",
+      "group": "pulls",
+      "title": "GET /pulls returns the GitHub pull-request shape",
+      "ok": true,
+      "detail": "GET /pulls returns the GitHub pull-request shape: ok",
+      "ms": 6
+    },
+    {
+      "id": "pulls.get-unknown",
+      "group": "pulls",
+      "title": "GET an unknown pull request is 404",
+      "ok": true,
+      "detail": "GET an unknown pull request is 404: ok",
+      "ms": 3
+    },
+    {
+      "id": "protocol.content-type-json",
+      "group": "protocol",
+      "title": "every REST reply is application/json, never HTML",
+      "ok": true,
+      "detail": "every REST reply is application/json, never HTML: ok",
+      "ms": 6
+    },
+    {
+      "id": "protocol.unknown-route-json-404",
+      "group": "protocol",
+      "title": "an unknown /api/v3 route is a JSON 404",
+      "ok": true,
+      "detail": "an unknown /api/v3 route is a JSON 404: ok",
+      "ms": 1
+    },
+    {
+      "id": "protocol.malformed-body-400",
+      "group": "protocol",
+      "title": "a malformed JSON body is a 400",
+      "ok": true,
+      "detail": "a malformed JSON body is a 400: ok",
+      "ms": 1
+    },
+    {
+      "id": "protocol.request-id",
+      "group": "protocol",
+      "title": "every reply carries a non-empty X-GitHub-Request-Id",
+      "ok": true,
+      "detail": "every reply carries a non-empty X-GitHub-Request-Id: ok",
+      "ms": 9
+    },
+    {
+      "id": "protocol.error-message",
+      "group": "protocol",
+      "title": "401, 404 and 422 bodies carry a string message",
+      "ok": true,
+      "detail": "401, 404 and 422 bodies carry a string message: ok",
+      "ms": 7
+    },
+    {
+      "id": "graphql.viewer-login",
+      "group": "graphql",
+      "title": "query { viewer { login } } answers the token owner",
+      "ok": true,
+      "detail": "viewer.login is adaiversen",
+      "ms": 5
+    },
+    {
+      "id": "graphql.repository-fields",
+      "group": "graphql",
+      "title": "repository(owner:, name:) answers id, databaseId, name, owner, defaultBranchRef, viewerPermission and hasIssuesEnabled",
+      "ok": true,
+      "detail": "repository adaiversen/amber-thistle-graphql reads back with every requested field",
+      "ms": 13
+    },
+    {
+      "id": "graphql.introspection-issue",
+      "group": "graphql",
+      "title": "__type(name: \"Issue\") lists the fields gh feature-detects",
+      "ok": true,
+      "detail": "Issue lists 10 field(s), including id, number, title, state and body",
+      "ms": 2
+    },
+    {
+      "id": "graphql.introspection-types",
+      "group": "graphql",
+      "title": "__type lists PullRequest, Repository and SearchType (gh's other probes, one check)",
+      "ok": true,
+      "detail": "PullRequest (12), Repository (15) and SearchType (7) describe their schema",
+      "ms": 3
+    },
+    {
+      "id": "graphql.issues-open-order",
+      "group": "graphql",
+      "title": "issues(first: 10, states: [OPEN], orderBy: CREATED_AT DESC) filters and orders",
+      "ok": true,
+      "detail": "3 OPEN issue(s) in CREATED_AT DESC order, the closed issue excluded",
+      "ms": 7
+    },
+    {
+      "id": "graphql.issue-by-number",
+      "group": "graphql",
+      "title": "issue(number:) reads one issue",
+      "ok": true,
+      "detail": "issue #1 reads back with its title, state, body and id",
+      "ms": 2
+    },
+    {
+      "id": "graphql.create-issue",
+      "group": "graphql",
+      "title": "createIssue creates an issue the REST view sees",
+      "ok": true,
+      "detail": "createIssue made #5 and the REST view reads it open with the same title",
+      "ms": 3
+    },
+    {
+      "id": "graphql.close-issue",
+      "group": "graphql",
+      "title": "closeIssue closes an issue the REST view shows closed",
+      "ok": true,
+      "detail": "closeIssue closed #6 and the REST view shows it closed",
+      "ms": 4
+    },
+    {
+      "id": "graphql.pull-requests-list",
+      "group": "graphql",
+      "title": "pullRequests(first: 5) lists number, headRefName, baseRefName, mergeable and state",
+      "ok": true,
+      "detail": "pull request #1 lists with its head, base, state and mergeable",
+      "ms": 21
+    },
+    {
+      "id": "graphql.pull-request-files",
+      "group": "graphql",
+      "title": "pullRequest(number:).files lists the changed paths",
+      "ok": true,
+      "detail": "pull request #1's files include config/token.css",
+      "ms": 2
+    },
+    {
+      "id": "graphql.create-pull-request",
+      "group": "graphql",
+      "title": "createPullRequest creates a pull request",
+      "ok": true,
+      "detail": "createPullRequest made #2 from chore/conditional-requests and the REST view reads it",
+      "ms": 2
+    },
+    {
+      "id": "graphql.merge-pull-request",
+      "group": "graphql",
+      "title": "mergePullRequest SQUASH merges and the REST view shows merged: true",
+      "ok": true,
+      "detail": "mergePullRequest squash-merged #3 and the REST view shows merged: true, state closed",
+      "ms": 4
+    },
+    {
+      "id": "graphql.add-comment",
+      "group": "graphql",
+      "title": "addComment writes an issue comment the REST view lists",
+      "ok": true,
+      "detail": "addComment wrote a comment on #7 and the REST view lists it",
+      "ms": 4
+    },
+    {
+      "id": "graphql.invalid-field",
+      "group": "graphql",
+      "title": "an invalid field is a 200 with an errors array",
+      "ok": true,
+      "detail": "HTTP 200 with 1 GraphQL error(s) naming noSuchFieldOnViewer",
+      "ms": 1
+    },
+    {
+      "id": "graphql.unauthenticated",
+      "group": "graphql",
+      "title": "an unauthenticated query is a 401",
+      "ok": true,
+      "detail": "an unauthenticated POST /api/graphql is 401",
+      "ms": 1
+    },
+    {
+      "id": "graphql.node-repository",
+      "group": "graphql",
+      "title": "node(id:) round-trips a repository",
+      "ok": true,
+      "detail": "node(id:) round-trips repository adaiversen/amber-thistle-graphql",
+      "ms": 1
+    },
+    {
+      "id": "graphql.unknown-repository",
+      "group": "graphql",
+      "title": "an unknown repository reads data.repository = null with no errors",
+      "ok": true,
+      "detail": "data.repository is null for \"amber-thistle-graphql-missing\" with no errors",
+      "ms": 1
+    },
+    {
+      "id": "graphql.batched-operations",
+      "group": "graphql",
+      "title": "two operation documents in one body answer in order",
+      "ok": true,
+      "detail": "two operation documents in one body answer two data objects in order",
+      "ms": 1
+    },
+    {
+      "id": "graphql.global-id-stability",
+      "group": "graphql",
+      "title": "global ids are opaque and equal on repeated reads",
+      "ok": true,
+      "detail": "the repository and issue global ids are non-empty, opaque and equal on repeated reads",
+      "ms": 4
+    },
+    {
+      "id": "graphql.issues-pagination",
+      "group": "graphql",
+      "title": "issues(first, after) pages by cursor to the end",
+      "ok": true,
+      "detail": "7 issues paged by the cursor as 5 + 2",
+      "ms": 10
+    },
+    {
+      "id": "mcp.initialize",
+      "group": "mcp",
+      "title": "initialize: serverInfo.name/version and capabilities.tools, over whichever era the server negotiates",
+      "ok": true,
+      "detail": "server/discover: github-core-clone 1.0.0, protocol 2026-07-28, tools capability present",
+      "ms": 3
+    },
+    {
+      "id": "mcp.server-discover",
+      "group": "mcp",
+      "title": "server/discover: a DiscoverResult with supportedVersions, or the pre-discover era",
+      "ok": true,
+      "detail": "server/discover: supportedVersions 2026-07-28, 2025-11-25; negotiated 2026-07-28",
+      "ms": 1
+    },
+    {
+      "id": "mcp.tools-list",
+      "group": "mcp",
+      "title": "tools/list: at least six tools, all six required ones present by name or obvious alias",
+      "ok": true,
+      "detail": "7 tools; all six present: create_repo->create_repo, get_repo->get_repo, create_issue->create_issue, list_issues->list_issues, create_pull_request->create_pull_request, merge_pull_request->merge_pull_request",
+      "ms": 3
+    },
+    {
+      "id": "mcp.tool-schemas",
+      "group": "mcp",
+      "title": "every tool has a non-empty description and an inputSchema of type object",
+      "ok": true,
+      "detail": "all 7 tools have a description and an object inputSchema",
+      "ms": 2
+    },
+    {
+      "id": "mcp.create-issue",
+      "group": "mcp",
+      "title": "tools/call create_issue creates an issue the REST surface lists",
+      "ok": true,
+      "detail": "created issue #1 over MCP; REST lists it with the same title",
+      "ms": 9
+    },
+    {
+      "id": "mcp.list-issues",
+      "group": "mcp",
+      "title": "tools/call list_issues returns an issue the repository holds",
+      "ok": true,
+      "detail": "list_issues returned issue #1 (by title)",
+      "ms": 6
+    },
+    {
+      "id": "mcp.create-pull-request",
+      "group": "mcp",
+      "title": "tools/call create_pull_request opens a pull request REST reads back with the same head and base",
+      "ok": true,
+      "detail": "pull request #1 created over MCP; REST reads mcp-head-6a09e667-pr-create into main, state open",
+      "ms": 11
+    },
+    {
+      "id": "mcp.merge-pull-request",
+      "group": "mcp",
+      "title": "tools/call merge_pull_request merges; REST reads merged:true",
+      "ok": true,
+      "detail": "pull request #1 merged over MCP; REST reads merged:true, state closed",
+      "ms": 10
+    },
+    {
+      "id": "mcp.unknown-tool",
+      "group": "mcp",
+      "title": "an unknown tool name answers JSON-RPC -32602 or -32601, never HTTP 500",
+      "ok": true,
+      "detail": "HTTP 200, JSON-RPC -32602: Unknown tool: mcp_no_such_tool_6a09e667",
+      "ms": 2
+    },
+    {
+      "id": "mcp.parse-error",
+      "group": "mcp",
+      "title": "a body that is not JSON answers HTTP 400 with JSON-RPC -32700",
+      "ok": true,
+      "detail": "HTTP 400, JSON-RPC -32700 parse error",
+      "ms": 2
+    },
+    {
+      "id": "mcp.missing-arguments",
+      "group": "mcp",
+      "title": "tools/call with missing required arguments answers isError:true or JSON-RPC -32602",
+      "ok": true,
+      "detail": "isError:true",
+      "ms": 3
+    },
+    {
+      "id": "mcp.concurrent-calls",
+      "group": "mcp",
+      "title": "two concurrent tool calls answer under their own ids and their own objects",
+      "ok": true,
+      "detail": "two concurrent tools/call answers kept their ids (concurrent-left-6a09e667, concurrent-right-6a09e667) and their own repositories",
+      "ms": 7
+    },
+    {
+      "id": "mcp.tools-list-idempotent",
+      "group": "mcp",
+      "title": "two tools/list answers hold the same tools array, byte for byte",
+      "ok": true,
+      "detail": "7 tools, byte-identical over two calls",
+      "ms": 3
+    },
+    {
+      "id": "mcp.rest-parity",
+      "group": "mcp",
+      "title": "a repository and an issue created over MCP are the same objects over REST, ids stable",
+      "ok": true,
+      "detail": "repo adaiversen/mcp-6a09e667-parity id 5118 and issue #1 id 511800001 are the same objects over MCP and REST, stable across reads",
+      "ms": 21
+    },
+    {
+      "id": "mcp.auth-required",
+      "group": "mcp",
+      "title": "a tools/call with no Authorization header answers HTTP 401",
+      "ok": true,
+      "detail": "unauthenticated tools/call -> HTTP 401",
+      "ms": 8
+    }
+  ],
+  "columns": {
+    "feature": 600,
+    "agent": 200,
+    "perf": 0,
+    "score": 800,
+    "working": 1
+  },
+  "perf": null
+}

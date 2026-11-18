@@ -11,7 +11,7 @@
 // /healthz, which takes none).
 
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http';
-import { makeCtx, readReq, splitPath, type Ctx, type Handler, type Req, type Resp } from './http.ts';
+import { makeCtx, parseJsonBody, readReq, splitPath, type Ctx, type Handler, type IncomingHeaders, type Req, type Resp } from './http.ts';
 import { handleRest } from './rest.ts';
 import { handleGraphql } from './graphql.ts';
 import { handleMcp } from './mcp.ts';
@@ -21,36 +21,56 @@ import { handleGit } from './git.ts';
  * non-empty, and a counter avoids a crypto random draw on every request. */
 let requestSeq = 0;
 
+export function nextRequestId(): string {
+  return `req-${(++requestSeq).toString(36)}`;
+}
+
 const JSON_TYPE = 'application/json; charset=utf-8';
 
-function sendResp(res: ServerResponse, resp: Resp, requestId: string): void {
+/** The serialised body of a Resp plus the headers that carry it: the one
+ * place that knows how a Resp becomes bytes, shared by both transports
+ * (node:http's createApp and the raw-TCP server). `headOnly` is for HEAD
+ * requests: the headers still carry the would-be body's length, but no body
+ * bytes are sent. */
+export function serializeResp(resp: Resp, requestId: string, headOnly = false): { status: number; headers: Record<string, string>; body: Buffer } {
   const headers: Record<string, string> = {
     'x-github-request-id': requestId,
     ...(resp.headers ?? {}),
   };
+  let body: Buffer;
   if (resp.raw !== undefined) {
     headers['content-type'] = resp.contentType ?? 'application/octet-stream';
-    headers['content-length'] = String(resp.raw.length);
-    res.writeHead(resp.status, headers);
-    res.end(resp.raw);
-    return;
-  }
-  if (resp.jsonText !== undefined) {
+    body = resp.raw;
+  } else if (resp.jsonText !== undefined) {
     // Already-serialized JSON (Store.issueJsonText): send as-is.
-    const text = Buffer.from(`${resp.jsonText}\n`, 'utf8');
+    body = Buffer.from(`${resp.jsonText}\n`, 'utf8');
     headers['content-type'] = resp.contentType ?? JSON_TYPE;
-    headers['content-length'] = String(text.length);
-    res.writeHead(resp.status, headers);
-    res.end(text);
-    return;
+  } else {
+    // One Buffer.from instead of JSON.stringify + a separate Buffer.byteLength
+    // scan: the byte length is the buffer's length.
+    body = Buffer.from(`${JSON.stringify(resp.body ?? null)}\n`, 'utf8');
+    headers['content-type'] = resp.contentType ?? JSON_TYPE;
   }
-  // One Buffer.from instead of JSON.stringify + a separate Buffer.byteLength
-  // scan: the byte length is the buffer's length.
-  const text = Buffer.from(`${JSON.stringify(resp.body ?? null)}\n`, 'utf8');
-  headers['content-type'] = resp.contentType ?? JSON_TYPE;
-  headers['content-length'] = String(text.length);
-  res.writeHead(resp.status, headers);
-  res.end(text);
+  headers['content-length'] = String(body.length);
+  return { status: resp.status, headers, body: headOnly ? Buffer.alloc(0) : body };
+}
+
+/** Build a Req from a method, a request-target, headers and a fully-read
+ * body: the transport-independent half of request handling. One target split
+ * per request: pathname and query come from the same parse. */
+export function buildReq(method: string, target: string, headers: IncomingHeaders, rawBody: Buffer): Req {
+  const { pathname, query } = splitTarget(target);
+  const { json, jsonError } = parseJsonBody(rawBody, headers['content-type']);
+  return {
+    method,
+    pathname,
+    segments: splitPath(pathname),
+    query,
+    headers,
+    rawBody,
+    json,
+    jsonError,
+  };
 }
 
 /** Split a request-target into pathname + query without a URL object.
@@ -91,21 +111,10 @@ export function createApp(token: string): Server {
   const ctx: Ctx = makeCtx(token);
   return createServer((req: IncomingMessage, res: ServerResponse) => {
     void (async () => {
-      // One target split per request: pathname and query come from the same parse.
-      const { pathname, query } = splitTarget(req.url ?? '/');
-      const requestId = `req-${(++requestSeq).toString(36)}`;
+      const requestId = nextRequestId();
       const method = req.method ?? 'GET';
-      const { rawBody, json, jsonError } = await readReq(req);
-      const fullReq: Req = {
-        method,
-        pathname,
-        segments: splitPath(pathname),
-        query,
-        headers: req.headers,
-        rawBody,
-        json,
-        jsonError,
-      };
+      const { rawBody } = await readReq(req);
+      const fullReq: Req = buildReq(method, req.url ?? '/', req.headers, rawBody);
       let resp: Resp;
       try {
         resp = await route(fullReq, ctx);
@@ -113,7 +122,9 @@ export function createApp(token: string): Server {
         resp = { status: 500, body: { message: err instanceof Error ? err.message : 'Internal Server Error' } };
       }
       try {
-        sendResp(res, resp, requestId);
+        const { status, headers, body } = serializeResp(resp, requestId);
+        res.writeHead(status, headers);
+        res.end(body);
       } catch {
         // The socket is gone; nothing to do.
       }
@@ -121,7 +132,7 @@ export function createApp(token: string): Server {
   });
 }
 
-async function route(req: Req, ctx: Ctx): Promise<Resp> {
+export async function route(req: Req, ctx: Ctx): Promise<Resp> {
   const { method, pathname, segments } = req;
 
   // The env's boot probe: 200 {"ok":true}, no auth.

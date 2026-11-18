@@ -7,6 +7,10 @@
 import type { IncomingHttpHeaders, IncomingMessage } from 'node:http';
 import { Store, VIEWER, type Viewer } from './store.ts';
 
+/** The request-headers shape both transports produce: lowercase names,
+ * string values (a repeated header arrives joined with ', ', as Node does). */
+export type IncomingHeaders = IncomingHttpHeaders;
+
 export interface Ctx {
   store: Store;
   viewer: Viewer;
@@ -95,18 +99,27 @@ export function readReq(req: IncomingMessage): Promise<{ rawBody: Buffer; json: 
     req.on('data', (c: Buffer) => chunks.push(c));
     req.on('end', () => {
       const rawBody = chunks.length === 1 ? (chunks[0] as Buffer) : Buffer.concat(chunks);
-      if (rawBody.length === 0) return resolve({ rawBody, json: undefined, jsonError: false });
-      const ct = req.headers['content-type'];
-      const tryJson = typeof ct !== 'string' || ct === '' || ct.includes('json');
-      if (!tryJson) return resolve({ rawBody, json: undefined, jsonError: false });
-      try {
-        return resolve({ rawBody, json: JSON.parse(rawBody.toString('utf8')), jsonError: false });
-      } catch {
-        return resolve({ rawBody, json: undefined, jsonError: true });
-      }
+      resolve({ rawBody, ...parseJsonBody(rawBody, req.headers['content-type']) });
     });
     req.on('error', () => resolve({ rawBody: Buffer.alloc(0), json: undefined, jsonError: true }));
   });
+}
+
+/** The JSON half of readReq, shared with the raw-TCP transport (which reads
+ * its own body): attempt JSON only when the content type says JSON or is
+ * absent, and report a malformed non-empty JSON body as jsonError. */
+export function parseJsonBody(
+  rawBody: Buffer,
+  contentType: string | string[] | undefined,
+): { json: unknown; jsonError: boolean } {
+  if (rawBody.length === 0) return { json: undefined, jsonError: false };
+  const tryJson = typeof contentType !== 'string' || contentType === '' || contentType.includes('json');
+  if (!tryJson) return { json: undefined, jsonError: false };
+  try {
+    return { json: JSON.parse(rawBody.toString('utf8')), jsonError: false };
+  } catch {
+    return { json: undefined, jsonError: true };
+  }
 }
 
 export function splitPath(pathname: string): string[] {

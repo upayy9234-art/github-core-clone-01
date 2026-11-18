@@ -1,0 +1,416 @@
+(node:10301) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 553.579 ms
+[bench] push round 2/3: 378.501 ms
+[bench] push round 3/3: 365.494 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 142.877 ms (50 concurrent)
+[bench] clone round 2/3: 122.736 ms (50 concurrent)
+[bench] clone round 3/3: 83.837 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 1114.963 ms
+[bench] read round 2/3: 667.07 ms
+[bench] read round 3/3: 548.394 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 90.268 ms
+[bench] write round 2/3: 226.209 ms
+[bench] write round 3/3: 84.823 ms
+[bench] push: p50 378.501 ms, 50 point(s)
+[bench] clone: p50 122.736 ms, 39 point(s)
+[bench] read: p50 667.07 ms, 50 point(s)
+[bench] write: p50 90.268 ms, 49 point(s)
+(node:10324) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 529.73 ms
+[bench] push round 2/3: 331.793 ms
+[bench] push round 3/3: 305.517 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 93.266 ms (50 concurrent)
+[bench] clone round 2/3: 73.396 ms (50 concurrent)
+[bench] clone round 3/3: 145.167 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 1188.83 ms
+[bench] read round 2/3: 1391.339 ms
+[bench] read round 3/3: 624.688 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 167.508 ms
+[bench] write round 2/3: 167.674 ms
+[bench] write round 3/3: 136.384 ms
+[bench] push: p50 331.793 ms, 50 point(s)
+[bench] clone: p50 93.266 ms, 44 point(s)
+[bench] read: p50 1188.83 ms, 40 point(s)
+[bench] write: p50 167.508 ms, 38 point(s)
+(node:10347) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 503.36 ms
+[bench] push round 2/3: 381.587 ms
+[bench] push round 3/3: 288.384 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 168.208 ms (50 concurrent)
+[bench] clone round 2/3: 81.363 ms (50 concurrent)
+[bench] clone round 3/3: 58.047 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 757.531 ms
+[bench] read round 2/3: 647.226 ms
+[bench] read round 3/3: 555.11 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 84.163 ms
+[bench] write round 2/3: 103.989 ms
+[bench] write round 3/3: 92.23 ms
+[bench] push: p50 381.587 ms, 50 point(s)
+[bench] clone: p50 81.363 ms, 46 point(s)
+[bench] read: p50 647.226 ms, 50 point(s)
+[bench] write: p50 92.23 ms, 49 point(s)
+(node:10383) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 615.362 ms
+[bench] push round 2/3: 487.812 ms
+[bench] push round 3/3: 581.941 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 126.349 ms (50 concurrent)
+[bench] clone round 2/3: 101.439 ms (50 concurrent)
+[bench] clone round 3/3: 192.414 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 793.948 ms
+[bench] read round 2/3: 713.139 ms
+[bench] read round 3/3: 546.648 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 99.51 ms
+[bench] write round 2/3: 131.429 ms
+[bench] write round 3/3: 109.939 ms
+[bench] push: p50 581.941 ms, 44 point(s)
+[bench] clone: p50 126.349 ms, 38 point(s)
+[bench] read: p50 713.139 ms, 49 point(s)
+[bench] write: p50 109.939 ms, 46 point(s)
+(node:10408) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 586.189 ms
+[bench] push round 2/3: 377.958 ms
+[bench] push round 3/3: 531.626 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 166.201 ms (50 concurrent)
+[bench] clone round 2/3: 134.208 ms (50 concurrent)
+[bench] clone round 3/3: 125.739 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 960.759 ms
+[bench] read round 2/3: 646.44 ms
+[bench] read round 3/3: 575.018 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 111.47 ms
+[bench] write round 2/3: 120.314 ms
+[bench] write round 3/3: 124.021 ms
+[bench] push: p50 531.626 ms, 45 point(s)
+[bench] clone: p50 134.208 ms, 37 point(s)
+[bench] read: p50 646.44 ms, 50 point(s)
+[bench] write: p50 120.314 ms, 44 point(s)
+(node:10431) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 608.425 ms
+[bench] push round 2/3: 386.303 ms
+[bench] push round 3/3: 259.803 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 115.07 ms (50 concurrent)
+[bench] clone round 2/3: 91.67 ms (50 concurrent)
+[bench] clone round 3/3: 123.688 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 771.241 ms
+[bench] read round 2/3: 613.237 ms
+[bench] read round 3/3: 507.683 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 109.646 ms
+[bench] write round 2/3: 105.381 ms
+[bench] write round 3/3: 83.443 ms
+[bench] push: p50 386.303 ms, 50 point(s)
+[bench] clone: p50 115.07 ms, 40 point(s)
+[bench] read: p50 613.237 ms, 50 point(s)
+[bench] write: p50 105.381 ms, 47 point(s)
+(node:10452) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 531.594 ms
+[bench] push round 2/3: 349.993 ms
+[bench] push round 3/3: 301.811 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 172.41 ms (50 concurrent)
+[bench] clone round 2/3: 106.746 ms (50 concurrent)
+[bench] clone round 3/3: 125.513 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 910.796 ms
+[bench] read round 2/3: 708.216 ms
+[bench] read round 3/3: 776.766 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 116.175 ms
+[bench] write round 2/3: 100.766 ms
+[bench] write round 3/3: 79.2 ms
+[bench] push: p50 349.993 ms, 50 point(s)
+[bench] clone: p50 125.513 ms, 39 point(s)
+[bench] read: p50 776.766 ms, 48 point(s)
+[bench] write: p50 100.766 ms, 47 point(s)
+(node:10476) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 685.469 ms
+[bench] push round 2/3: 403.94 ms
+[bench] push round 3/3: 309.211 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 136.54 ms (50 concurrent)
+[bench] clone round 2/3: 108.61 ms (50 concurrent)
+[bench] clone round 3/3: 99.819 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 817.489 ms
+[bench] read round 2/3: 582.46 ms
+[bench] read round 3/3: 533.862 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 90.904 ms
+[bench] write round 2/3: 105.065 ms
+[bench] write round 3/3: 130.693 ms
+[bench] push: p50 403.94 ms, 50 point(s)
+[bench] clone: p50 108.61 ms, 41 point(s)
+[bench] read: p50 582.46 ms, 50 point(s)
+[bench] write: p50 105.065 ms, 47 point(s)
+(node:10509) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 932.383 ms
+[bench] push round 2/3: 419.321 ms
+[bench] push round 3/3: 300.214 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 160.237 ms (50 concurrent)
+[bench] clone round 2/3: 93.881 ms (50 concurrent)
+[bench] clone round 3/3: 124.475 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 1036.911 ms
+[bench] read round 2/3: 814.869 ms
+[bench] read round 3/3: 637.436 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 94.52 ms
+[bench] write round 2/3: 91.95 ms
+[bench] write round 3/3: 132.791 ms
+[bench] push: p50 419.321 ms, 50 point(s)
+[bench] clone: p50 124.475 ms, 39 point(s)
+[bench] read: p50 814.869 ms, 47 point(s)
+[bench] write: p50 94.52 ms, 49 point(s)
+(node:10550) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 637.155 ms
+[bench] push round 2/3: 363.736 ms
+[bench] push round 3/3: 244.254 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 129.778 ms (50 concurrent)
+[bench] clone round 2/3: 99.342 ms (50 concurrent)
+[bench] clone round 3/3: 49.078 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 943.535 ms
+[bench] read round 2/3: 729.144 ms
+[bench] read round 3/3: 620.933 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 88.932 ms
+[bench] write round 2/3: 174.502 ms
+[bench] write round 3/3: 93.862 ms
+[bench] push: p50 363.736 ms, 50 point(s)
+[bench] clone: p50 99.342 ms, 43 point(s)
+[bench] read: p50 729.144 ms, 49 point(s)
+[bench] write: p50 93.862 ms, 49 point(s)
+(node:10573) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 543.966 ms
+[bench] push round 2/3: 351.082 ms
+[bench] push round 3/3: 275.005 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 124.993 ms (50 concurrent)
+[bench] clone round 2/3: 71.519 ms (50 concurrent)
+[bench] clone round 3/3: 60.798 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 806.42 ms
+[bench] read round 2/3: 727.12 ms
+[bench] read round 3/3: 548.602 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 77.197 ms
+[bench] write round 2/3: 79.245 ms
+[bench] write round 3/3: 156.803 ms
+[bench] push: p50 351.082 ms, 50 point(s)
+[bench] clone: p50 71.519 ms, 49 point(s)
+[bench] read: p50 727.12 ms, 49 point(s)
+[bench] write: p50 79.245 ms, 50 point(s)
+(node:10594) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 621.908 ms
+[bench] push round 2/3: 434.511 ms
+[bench] push round 3/3: 299.561 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 182.884 ms (50 concurrent)
+[bench] clone round 2/3: 122.579 ms (50 concurrent)
+[bench] clone round 3/3: 83.688 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 913.148 ms
+[bench] read round 2/3: 650.604 ms
+[bench] read round 3/3: 646.418 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 113.909 ms
+[bench] write round 2/3: 152.925 ms
+[bench] write round 3/3: 119.12 ms
+[bench] push: p50 434.511 ms, 49 point(s)
+[bench] clone: p50 122.579 ms, 39 point(s)
+[bench] read: p50 650.604 ms, 50 point(s)
+[bench] write: p50 119.12 ms, 44 point(s)
+(node:10620) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 689.951 ms
+[bench] push round 2/3: 541.687 ms
+[bench] push round 3/3: 508.412 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 245.984 ms (50 concurrent)
+[bench] clone round 2/3: 123.593 ms (50 concurrent)
+[bench] clone round 3/3: 72.056 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 1059.277 ms
+[bench] read round 2/3: 717.974 ms
+[bench] read round 3/3: 491.802 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 95.82 ms
+[bench] write round 2/3: 131.177 ms
+[bench] write round 3/3: 160.819 ms
+[bench] push: p50 541.687 ms, 45 point(s)
+[bench] clone: p50 123.593 ms, 39 point(s)
+[bench] read: p50 717.974 ms, 49 point(s)
+[bench] write: p50 131.177 ms, 43 point(s)
+(node:10683) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 542.056 ms
+[bench] push round 2/3: 343.084 ms
+[bench] push round 3/3: 234.201 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 122.411 ms (50 concurrent)
+[bench] clone round 2/3: 72 ms (50 concurrent)
+[bench] clone round 3/3: 116.97 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 805.127 ms
+[bench] read round 2/3: 688.775 ms
+[bench] read round 3/3: 548.4 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 89.444 ms
+[bench] write round 2/3: 117.136 ms
+[bench] write round 3/3: 141.31 ms
+[bench] push: p50 343.084 ms, 50 point(s)
+[bench] clone: p50 116.97 ms, 40 point(s)
+[bench] read: p50 688.775 ms, 50 point(s)
+[bench] write: p50 117.136 ms, 45 point(s)
+(node:10704) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 483.853 ms
+[bench] push round 2/3: 432.748 ms
+[bench] push round 3/3: 230.462 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 134.086 ms (50 concurrent)
+[bench] clone round 2/3: 99.689 ms (50 concurrent)
+[bench] clone round 3/3: 106.19 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 881.475 ms
+[bench] read round 2/3: 651.309 ms
+[bench] read round 3/3: 465.653 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 123.881 ms
+[bench] write round 2/3: 102.286 ms
+[bench] write round 3/3: 94.645 ms
+[bench] push: p50 432.748 ms, 49 point(s)
+[bench] clone: p50 106.19 ms, 42 point(s)
+[bench] read: p50 651.309 ms, 50 point(s)
+[bench] write: p50 102.286 ms, 47 point(s)
+(node:10737) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/hatch/workspace/makefun/github-core-clone-01-kit/program/env/src/bench.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/hatch/workspace/makefun/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[bench] push: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] push: built 605 push payload(s) before timing
+[bench] push round 1/3: 528.525 ms
+[bench] push round 2/3: 539.177 ms
+[bench] push round 3/3: 338.036 ms
+[bench] clone: 50 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] clone: built the 200-commit history (88105 pack bytes)
+[bench] clone round 1/3: 180.121 ms (50 concurrent)
+[bench] clone round 2/3: 117.773 ms (50 concurrent)
+[bench] clone round 3/3: 106.37 ms (50 concurrent)
+[bench] read: 2000 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] read round 1/3: 936.3 ms
+[bench] read round 2/3: 1383.743 ms
+[bench] read round 3/3: 1483.099 ms
+[bench] write: 200 op(s) a round, 3 round(s), 5 warm-up op(s), 60000 ms budget
+[bench] write round 1/3: 261.798 ms
+[bench] write round 2/3: 332.838 ms
+[bench] write round 3/3: 286.201 ms
+[bench] push: p50 528.525 ms, 45 point(s)
+[bench] clone: p50 117.773 ms, 40 point(s)
+[bench] read: p50 1383.743 ms, 37 point(s)
+[bench] write: p50 286.201 ms, 29 point(s)
